@@ -1,0 +1,168 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h1 style="text-align: center">Users List</h1><br>
+        <div class="row">
+            <form [formGroup]="searchForm">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="search" style="margin-left: -383px;">Search</label>
+                        <select class="form-control" formControlName="search"
+                            style="width: 49%; float: left;margin-top: 20px;">
+                            <option value="" [selected]='true'>Select the Option</option>
+                            <option value="firstName">FirstName</option>
+                            <option value="lastName">LastName</option>
+                            <option value="pincode">Pincode</option>
+                        </select>
+                        <input type="text" class="form-control" formControlName="searchTxt" (keyup)="searchResult()"
+                            style="width: 49%;float: left;margin-top: 20px;">
+
+                    </div>
+
+                </div>
+                <div class="col-sm-4" [hidden]="!deleteMessage">
+                    <div class="alert alert-info alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>User Data Deleted</strong>
+                    </div>
+                </div>
+                <div class="col-sm-4" style="float: right;">
+                    <div class="form-group">
+                        <label for="search" style="margin-left: -185px;">Sort</label>
+                        <select class="form-control"formControlName="sortKey" (change)="Sorting()"
+                            style="width: 49%; float: left;margin-top: 20px;">
+                            <option value="" [selected]='true'>Select the Option</option>
+                            <option value="DOB-A">DOB - ASC</option>
+                            <option value="DOB-D">DOB - DESC</option>
+                            <option value="DOJ-A">DOJ - ASC</option>
+                            <option value="DOJ-D">DOJ - DESC</option>
+                        </select>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="panel-body">
+        <table class="table table-hover table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Pincode</th>
+                    <th>DOB</th>
+                    <th>DOJ</th>
+                    <th>Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of usersList">
+                    <td>{{user.firstName}}</td>
+                    <td>{{user.lastName}}</td>
+                    <td>{{user.pincode}}</td>
+                    <td>{{user.dob}}</td>
+                    <td>{{user.doj}}</td>
+                    <td><button (click)="deleteUser(user.id,1)" class='btn btn-primary' style="margin-right: 5px;"><i
+                                class="fa fa-futboll-0">Soft
+                                Delete</i></button>
+                        <button (click)="deleteUser(user.id,2)" class='btn btn-primary' style="margin-right: 5px;"><i
+                                class="fa fa-futboll-0">Hard
+                                Delete</i></button>
+                        <button (click)="updateUser(user.id,user)" class='btn btn-info' data-toggle="modal"
+                            data-target="#myModal">Update</button>
+                    </td>
+                </tr>
+            </tbody><br>
+        </table>
+    </div>
+</div>
+
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form [formGroup]="userFormUpdate">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title" style="text-align: center">Update UserInfo</h4>
+
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="name">First Name</label>
+                        <input type="text" class="form-control" formControlName="firstName" data-toggle="tooltip"
+                            data-placement="right" title="Enter First Name" pattern="[a-zA-Z]{1,15}">
+                        <!-- <div class="alert alert-danger" *ngIf = "(firstName.touched) && (firstName.invalid)"   
+                      style="margin-top: 5px;">  
+                        <span *ngIf="firstName.errors.required">First Name is Required</span>  
+                          <span *ngIf = "firstName.errors.minlength">   
+                              MinLength Error   
+                          </span>                     
+                      </div>   -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Last Name</label>
+                        <input type="text" class="form-control" formControlName="lastName" data-toggle="tooltip"
+                            data-placement="right" title="Enter Last Name">
+                        <!-- <div class="alert alert-danger" *ngIf = "(lastName.touched) && (lastName.invalid)"   
+                      style="margin-top: 5px;">  
+                        <span *ngIf="lastName.errors.required">Last Name is Required</span>  
+                                             
+                      </div>   -->
+                    </div>
+                    <div class="form-group">
+                        <label for="name">pincode</label>
+                        <input type="number" class="form-control" formControlName="pincode" data-toggle="tooltip"
+                            data-placement="right" title="Enter pincode">
+                        <!-- <div class="alert alert-danger" *ngIf = "(pincode.touched) && (pincode.invalid)"   
+                    style="margin-top: 5px;">  
+                      <span *ngIf="pincode.errors.required">pincode is Required</span>  
+                                           
+                    </div>   -->
+                    </div>
+                    <div class="form-group">
+                        <label for="name">dob</label>
+                        <input type="date" class="form-control" formControlName="dob" name="dob" data-toggle="tooltip"
+                            data-placement="right" title="Enter dob">
+                        <!-- <div class="alert alert-danger" *ngIf = "(dob.touched) && (dob.invalid)"   
+                    style="margin-top: 5px;">  
+                      <span *ngIf="dob.errors.required">pincode is Required</span>  
+                                           
+                    </div>   -->
+
+                    </div>
+                    <div class="form-group">
+                        <label for="name">doj</label>
+                        <input type="date" class="form-control" formControlName="doj" name="DOJ" data-toggle="tooltip"
+                            data-placement="right" title="Enter doj">
+                        <!-- <div class="alert alert-danger" *ngIf = "(doj.touched) && (doj.invalid)"   
+                    style="margin-top: 5px;">  
+                      <span *ngIf="doj.errors.required">doj is Required</span>  
+                                           
+                    </div>   -->
+                    </div>
+
+
+                    <div [hidden]="!isupdated">
+                        <h4>User Detail Updated!</h4>
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" (click)="updateUserInfo()"
+                        [hidden]="isupdated">Update</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"
+                        (click)="changeisUpdate()">Close</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

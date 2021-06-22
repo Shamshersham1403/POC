@@ -1,0 +1,77 @@
+<h3>Create Student</h3>  
+<div class="row">  
+  <div class="col-sm-4"></div>  
+  <div class="col-sm-4" >  
+    <div [hidden]="submitted" style="width: 400px;">  
+      <form [formGroup]="userForm" >  
+          <div class="form-group">  
+              <label for="name">First Name</label>  
+              <input type="text" class="form-control"  formControlName="firstName" data-toggle="tooltip"   
+                 data-placement="right" title="Enter First Name" pattern="[a-zA-Z]{1,15}" >  
+              <!-- <div class="alert alert-danger" *ngIf = "(firstName.touched) && (firstName.invalid)"   
+                style="margin-top: 5px;">  
+                  <span *ngIf="firstName.errors.required">First Name is Required</span>  
+                    <span *ngIf = "firstName.errors.minlength">   
+                        MinLength Error   
+                    </span>                     
+                </div>   -->
+          </div>  
+    
+          <div class="form-group">  
+              <label for="name">Last Name</label>  
+              <input type="text" class="form-control" formControlName="lastName"   
+                data-toggle="tooltip" data-placement="right" title="Enter Last Name">  
+                <!-- <div class="alert alert-danger" *ngIf = "(lastName.touched) && (lastName.invalid)"   
+                style="margin-top: 5px;">  
+                  <span *ngIf="lastName.errors.required">Last Name is Required</span>  
+                                       
+                </div>   -->
+          </div>  
+          <div class="form-group">  
+            <label for="name">pincode</label>  
+            <input type="number" class="form-control" formControlName="pincode"   
+              data-toggle="tooltip" data-placement="right" title="Enter pincode">  
+              <!-- <div class="alert alert-danger" *ngIf = "(pincode.touched) && (pincode.invalid)"   
+              style="margin-top: 5px;">  
+                <span *ngIf="pincode.errors.required">pincode is Required</span>  
+                                     
+              </div>   -->
+        </div>  
+        <div class="form-group">  
+            <label for="name">dob</label>  
+            <input type="date" class="form-control" formControlName="dob" name="dob"    
+              data-toggle="tooltip" data-placement="right" title="Enter dob">  
+              <!-- <div class="alert alert-danger" *ngIf = "(dob.touched) && (dob.invalid)"   
+              style="margin-top: 5px;">  
+                <span *ngIf="dob.errors.required">pincode is Required</span>  
+                                     
+              </div>   -->
+           
+        </div>  
+        <div class="form-group">  
+            <label for="name">doj</label>  
+            <input type="date" class="form-control" formControlName="doj" name="DOJ"   
+              data-toggle="tooltip" data-placement="right" title="Enter doj">  
+              <!-- <div class="alert alert-danger" *ngIf = "(doj.touched) && (doj.invalid)"   
+              style="margin-top: 5px;">  
+                <span *ngIf="doj.errors.required">doj is Required</span>  
+                                     
+              </div>   -->
+        </div>  
+    
+          <button type="submit" (click)="saveUser()" class="btn btn-success">Submit</button>  
+      </form>  
+  </div>  
+  </div>  
+  <div class="col-sm-4"></div>  
+</div>  
+<div class="row">  
+  <div class="col-sm-4"></div>  
+  <div class="col-sm-4">  
+      <div [hidden]="!submitted">  
+         <h4>{{name}} your Registration ID: {{regID}}</h4>  
+         <button (click)="addUserForm()" class='btn btn-primary'>Add More Student</button>  
+      </div>        
+  </div>  
+  <div class="col-sm-4"></div>  
+</div>  
